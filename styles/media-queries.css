@@ -1,0 +1,59 @@
+.my-bg-color{
+    background-color: green;
+    color:white;
+    font-size: 25px;
+}
+
+/* X-Small devices (portrait phones, less than 576px)
+ No media query for `xs` since this is the default */
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+    .my-bg-color{
+    background-color: blue;
+    color:white;
+    font-size: 25px;
+}
+    
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+ .my-bg-color{
+    background-color: orange;
+    color:black;
+    font-size: 25px;
+}  
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+     .my-bg-color{
+    background-color: pink;
+    color:black;
+    font-size: 25px;
+}  
+}
+
+/* X-Large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+     .my-bg-color{
+    background-color: cyan;
+    color:white;
+    font-size: 25px;
+}  
+}
+
+
+
+
+
+/* XX-Large devices (larger desktops, 1400px and up)*/
+@media (min-width: 1400px) {
+     .my-bg-color{
+    background-color: red;
+    color:white;
+    font-size: 25px;
+}  
+    
+}
