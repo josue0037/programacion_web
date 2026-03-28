@@ -56,7 +56,7 @@ function login(){
 	
 	formData.append("email", email.val());
 	formData.append("pwd", password.val());
-	$.ajax({url: "/ajax-jquery/login.php",
+	$.ajax({url: "/programacion-web-practicas/ajax-jquery/login.php",
 		data: formData,
 		processData: false,
 		contentType: false,
