@@ -13,6 +13,13 @@ body {
     border-right: 1px solid #ddd;
     transition: transform 0.3s ease;
     z-index: 1000;
+    overflow-y: auto;      /* 🔥 permite scroll vertical */
+    overflow-x: hidden;    /* evita scroll horizontal */
+}
+
+/* cuando se abre */
+.sidebar.active{
+    left: 0;
 }
 
 /* CONTENIDO */
