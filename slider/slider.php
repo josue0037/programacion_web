@@ -70,4 +70,47 @@ if ($_GET['action'] === 'read') {
 //  fallback (evita errores JSON)
 echo json_encode([]);
 exit;
+
+if ($_GET['action'] === 'delete') {
+
+    $id = $_POST['id'];
+
+    //  obtener ruta
+    $sql = "SELECT ruta FROM slider WHERE id = :id";
+    $query = $db->prepare($sql);
+    $query->execute(['id' => $id]);
+    $img = $query->fetch();
+
+    //  borrar archivo físico
+    if ($img && file_exists($img['ruta'])) {
+        unlink($img['ruta']);
+    }
+
+    //  borrar de BD (o desactivar)
+    $sql = "UPDATE slider SET activo = false WHERE id = :id";
+    $query = $db->prepare($sql);
+    $query->execute(['id' => $id]);
+
+    echo "ok";
+    exit;
+}
+
+if ($_GET['action'] === 'update') {
+
+    $id = $_POST['id'];
+    $nombre = $_POST['nombre'];
+
+    $sql = "UPDATE slider SET nombre = :nombre WHERE id = :id";
+    $query = $db->prepare($sql);
+
+    $query->execute([
+        'nombre' => $nombre,
+        'id' => $id
+    ]);
+
+    echo "ok";
+    exit;
+}
+
+
 ?>
