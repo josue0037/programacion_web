@@ -117,3 +117,32 @@ body {
 .collapse {
     transition: all 0.3s ease;
 }
+
+
+.carousel {
+    width: 100%;
+}
+
+/* Altura responsive */
+.carousel-item {
+    height: 250px;
+}
+
+@media (min-width: 768px) {
+    .carousel-item {
+        height: 400px;
+    }
+}
+
+/* Ajuste de imagen */
+.carousel-item img {
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (min-width: 768px) {
+    .carousel-item img {
+        height: 400px;
+        object-fit: cover;
+    }
+}
