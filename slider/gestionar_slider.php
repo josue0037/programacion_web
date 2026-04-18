@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="../styles/styles_slider.css">
     <link rel="stylesheet" href="../styles/style_index.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+    const USER_ROLE = "<?php session_start(); echo $_SESSION['role'] ?? 'guest'; ?>";
+    </script>
 </head>
 <body>
 <button class="btn btn-dark m-3 d-md-none" onclick="toggleSidebar()">
@@ -60,8 +63,12 @@
             </li> <li><a href="#" class="nav-link px-2">FAQs</a>
             </li> <li><a href="#" class="nav-link px-2">About</a>
             </li> </ul> <div class="col-md-3 text-end"> 
-                <button type="button" class="btn btn-outline-primary me-2">Login</button> 
-                <button type="button" class="btn btn-primary">Sign-up</button> 
+                <a href="../Jserrano/login.html">
+                    <button type="button" class="btn btn-outline-primary me-2">Login</button>
+                </a>
+                <a href="../Jserrano/registro.html">
+                    <button type="button" class="btn btn-primary">Sign-up</button>
+                </a>
             </div> 
         </header> 
 
