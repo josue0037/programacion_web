@@ -29,7 +29,7 @@ if ($_GET['action'] === 'create') {
 
     $ruta = "img/" . $hash . "." . $extension;
 
-    $sqlCheck = "SELECT COUNT(*) FROM slider WHERE ruta = :ruta";
+    $sqlCheck = "SELECT COUNT(*) FROM slider WHERE ruta = :ruta AND activo = true";
     $queryCheck = $db->prepare($sqlCheck);
     $queryCheck->execute(['ruta' => $ruta]);
 
@@ -70,26 +70,52 @@ if ($_GET['action'] === 'read') {
 
 if ($_GET['action'] === 'delete') {
 
-    $id = $_POST['id'];
+    $id = $_POST['id'] ?? null;
+    $modo = $_POST['modo'] ?? 'soft'; // soft | hard
 
-    //  obtener ruta
+    if (!$id) {
+        echo "error_id";
+        exit;
+    }
+
+    // Obtener datos
     $sql = "SELECT ruta FROM slider WHERE id = :id";
     $query = $db->prepare($sql);
     $query->execute(['id' => $id]);
-    $img = $query->fetch();
+    $img = $query->fetch(PDO::FETCH_ASSOC);
 
-    //  borrar archivo físico
-    if ($img && file_exists($img['ruta'])) {
-        unlink($img['ruta']);
+    if (!$img) {
+        echo "no_existe";
+        exit;
     }
 
-    //  borrar de BD (o desactivar)
-    $sql = "UPDATE slider SET activo = false WHERE id = :id";
-    $query = $db->prepare($sql);
-    $query->execute(['id' => $id]);
+    // 🔴 HARD DELETE (borra TODO)
+    if ($modo === 'hard') {
 
-    echo "ok";
-    exit;
+        // borrar archivo físico
+        if (isset($img['ruta']) && file_exists($img['ruta'])) {
+            unlink($img['ruta']);
+        }
+
+        // borrar de BD
+        $sql = "DELETE FROM slider WHERE id = :id";
+        $query = $db->prepare($sql);
+        $query->execute(['id' => $id]);
+
+        echo "eliminado_total";
+        exit;
+    }
+
+    // 🟡 SOFT DELETE (solo desactiva)
+    if ($modo === 'soft') {
+
+        $sql = "UPDATE slider SET activo = false WHERE id = :id";
+        $query = $db->prepare($sql);
+        $query->execute(['id' => $id]);
+
+        echo "desactivado";
+        exit;
+    }
 }
 
 if ($_GET['action'] === 'update') {

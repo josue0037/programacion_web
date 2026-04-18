@@ -120,12 +120,11 @@ function editar(id, nombre) {
     });
 }
 
-function eliminar(id) {
-
-    if (!confirm("¿Seguro que quieres eliminar esta imagen?")) return;
+function desactivar(id) {
 
     let formData = new FormData();
     formData.append("id", id);
+    formData.append("modo", "soft");
 
     fetch("slider.php?action=delete", {
         method: "POST",
@@ -133,12 +132,8 @@ function eliminar(id) {
     })
     .then(res => res.text())
     .then(res => {
-
-        if (res.trim() === "ok") {
-            cargar(); // recargar lista
-        } else {
-            alert("Error al eliminar");
+        if (res.includes("desactivado")) {
+            cargar();
         }
-
     });
 }
