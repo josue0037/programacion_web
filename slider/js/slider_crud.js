@@ -89,7 +89,7 @@ function cargar() {
                     >
 
                     <button class="btn btn-danger mt-2" 
-                        onclick="eliminar(${item.id})">
+                        onclick="desactivar(${item.id})">
                         Eliminar
                     </button>
 
