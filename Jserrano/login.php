@@ -2,7 +2,7 @@
 
 // index.php
 require_once 'db.php'; // Traemos el código del otro archivo
-
+//require_once 'dbpgs.php'; // Traemos el código del otro archivo
 
 
 //  Obtenemos los datos del formulario
@@ -16,7 +16,7 @@ require_once 'db.php'; // Traemos el código del otro archivo
   try {
   
 
-        $sql = "SELECT id, password, email FROM usuarios WHERE email = :email";
+        $sql = "SELECT id, password, email, role FROM usuarios WHERE email = :email";
         $query = $db->prepare($sql);
 
         $query->execute([
@@ -43,6 +43,7 @@ require_once 'db.php'; // Traemos el código del otro archivo
         session_start();
         $_SESSION['username'] = $usuario['email'];
         $_SESSION['id'] = $usuario['id'];
+        $_SESSION['role'] = $usuario['role'];
 
         echo "login_correcto";
         
@@ -58,10 +59,4 @@ require_once 'db.php'; // Traemos el código del otro archivo
         
      
     }
-
-
-
-
-
-
 ?>

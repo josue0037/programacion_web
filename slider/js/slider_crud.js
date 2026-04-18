@@ -1,5 +1,8 @@
 $(document).ready(function () {
-
+    // 🔥 Ocultar formulario si NO es admin
+    if (USER_ROLE !== "admin") {
+        $("#formSlider").hide();
+    }
     // CARGAR LISTA AL INICIO
     cargar();
 
@@ -86,7 +89,12 @@ function cargar() {
                 <div class="mb-3 border p-2">
 
                     <img src="${item.ruta}" width="200">
+            `;
 
+            // 🔥 SOLO ADMIN PUEDE EDITAR
+            if (USER_ROLE === "admin") {
+
+                html += `
                     <input 
                         type="text" 
                         value="${item.nombre}" 
@@ -98,9 +106,10 @@ function cargar() {
                         onclick="desactivar(${item.id})">
                         Eliminar
                     </button>
+                `;
+            }
 
-                </div>
-            `;
+            html += `</div>`;
         });
 
         document.getElementById("lista").innerHTML = html;

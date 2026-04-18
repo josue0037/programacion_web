@@ -1,6 +1,32 @@
 <?php
 require 'db.php';
 
+if ($_GET['action'] === 'read') {
+
+    $query = $db->query("SELECT * FROM slider WHERE activo = true");
+    $data = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    header('Content-Type: application/json');
+    echo json_encode($data);
+    exit;
+}
+
+session_start();
+
+// Comprobar sesión primero
+if(!isset($_SESSION["username"])){
+    header("location: ../Jserrano/login.php");
+    exit;
+}
+
+// Comprobar si el usuario es administrador
+session_start();
+
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    echo "no_autorizado";
+    exit;
+}
+
 //  CREAR
 $action = $_GET['action'] ?? '';
 
@@ -97,18 +123,6 @@ if ($action === 'create') {
     ]);
 
     echo "ok";
-    exit;
-}
-
-
-
-if ($_GET['action'] === 'read') {
-
-    $query = $db->query("SELECT * FROM slider WHERE activo = true");
-    $data = $query->fetchAll(PDO::FETCH_ASSOC);
-
-    header('Content-Type: application/json');
-    echo json_encode($data);
     exit;
 }
 

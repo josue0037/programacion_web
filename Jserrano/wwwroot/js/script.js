@@ -95,7 +95,7 @@ success: function(result) {
 
     if (result.trim() === "registro_correcto") {
         alert("Usuario registrado correctamente");
-        window.location.href = "index.html";
+        window.location.href = "login.html";
     }
 		},
         error: function(xhr, status) {
@@ -173,7 +173,7 @@ function login() {
 
             // Login correcto
             if (result === "login_correcto") {
-                window.location.href = "dashboard.php";
+                window.location.href = "../index.html";
             }
         },
 
